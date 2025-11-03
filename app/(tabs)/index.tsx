@@ -1,12 +1,11 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 
-import { StyleSheet } from 'react-native';
 import { useEffect, useState } from "react";
+import { StyleSheet } from 'react-native';
 
-//import EditScreenInfo from '@/components/EditScreenInfo';
-import { View } from '@/components/Themed';
 import ProjectsCards from "@/components/ProjectsCards";
+import { View } from '@/components/Themed';
 
 export interface Projeto {
   id: string;

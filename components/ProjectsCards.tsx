@@ -40,7 +40,6 @@ export default function ProjectsCards({ projects }: ProjectsCardsProps) {
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.name}</Text>
               <Text>Orientador: {item.professor}</Text>
               <Text>Aluno: {item.students}</Text>
-              <Text>Status: {item.status}</Text>
             </Pressable>
           )}
         />
