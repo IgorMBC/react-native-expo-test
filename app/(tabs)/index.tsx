@@ -6,13 +6,14 @@ import { StyleSheet } from 'react-native';
 
 import ProjectsCards from "@/components/ProjectsCards";
 import { View } from '@/components/Themed';
+import { StatusProjeto } from "../../src/types/status";
 
 export interface Projeto {
   id: string;
   name: string;
   description: string;
   professor: string;
-  status: string;
+  status: StatusProjeto;
   students: string[];
 };
 

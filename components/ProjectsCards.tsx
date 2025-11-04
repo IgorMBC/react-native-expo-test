@@ -13,6 +13,19 @@ export default function ProjectsCards({ projects }: ProjectsCardsProps) {
     const [selectedProject, setSelectedProject] = useState<Projeto | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
 
+    const statusLabels = {
+      A_FAZER: "A fazer",
+      EM_ANDAMENTO: "Em andamento",
+      CONCLUIDO: "Concluído",
+    };
+
+    const statusColor = {
+      A_FAZER: "#FFC107",
+      EM_ANDAMENTO: "#2196F3",
+      CONCLUIDO: "#4CAF50",
+    };
+
+
     return(
       <View>
         <FlatList
@@ -37,9 +50,23 @@ export default function ProjectsCards({ projects }: ProjectsCardsProps) {
                 setModalVisible(true);
               }}
             >
+              <View
+                style={{
+                  backgroundColor: statusColor[item.status],
+                  paddingVertical: 4,
+                  paddingHorizontal: 8,
+                  borderRadius: 6,
+                  alignSelf: "flex-start",
+                  marginBottom: 6,
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "600" }}>
+                  {statusLabels[item.status]}
+                </Text>
+              </View>
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.name}</Text>
               <Text>Orientador: {item.professor}</Text>
-              <Text>Aluno: {item.students}</Text>
+              <Text>Aluno(s): {item.students.join(", ")}</Text>
             </Pressable>
           )}
         />
@@ -69,7 +96,7 @@ export default function ProjectsCards({ projects }: ProjectsCardsProps) {
                   <Text>Descrição: {selectedProject.description}</Text>
                   <Text>Professor: {selectedProject.professor}</Text>
                   <Text>Alunos: {selectedProject.students.join(", ")}</Text>
-                  <Text>Status: {selectedProject.status}</Text>
+                  <Text>Status: {statusLabels[selectedProject.status]}</Text>
                 </>
               )}
               <Pressable
