@@ -1,35 +1,85 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet, Pressable, Text, View } from 'react-native';
+import { useState } from "react";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function ModalScreen({ navigation }: any) {
+    const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
 
-export default function ModalScreen() {
+    const filters = [
+      { id: "A_FAZER", label: "A Fazer" },
+      { id: "EM_ANDAMENTO", label: "Em Andamento" },
+      { id: "CONCLUIDO", label: "Concluído" },
+    ];
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" />
+      <Text style={styles.title}>Filtrar Projetos</Text>
+      <View style={styles.separator} />
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      {filters.map((f) => (
+        <Pressable
+          key={f.id}
+          style={[
+            styles.filterButton,
+            selectedFilter === f.id && { backgroundColor: "#2196F3" },
+          ]}
+          onPress={() => setSelectedFilter(f.id)}
+        >
+          <Text
+            style={{
+              color: selectedFilter === f.id ? "#fff" : "#000",
+              fontWeight: "500",
+            }}
+          >
+            {f.label}
+          </Text>
+        </Pressable>
+      ))}
+
+      <Pressable
+        style={styles.applyButton}
+        onPress={() => {
+          navigation.navigate("TelaProjetos", { filter: selectedFilter });
+        }}
+      >
+        <Text style={{ color: "#fff" }}>Aplicar Filtro</Text>
+      </Pressable>
+
+      <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    marginBottom: 20,
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 10,
     height: 1,
-    width: '80%',
+    width: "80%",
+    backgroundColor: "#ccc",
+  },
+  filterButton: {
+    padding: 10,
+    marginVertical: 5,
+    width: "70%",
+    borderRadius: 8,
+    backgroundColor: "#f2f2f2",
+    alignItems: "center",
+  },
+  applyButton: {
+    marginTop: 20,
+    backgroundColor: "#2196F3",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 8,
   },
 });

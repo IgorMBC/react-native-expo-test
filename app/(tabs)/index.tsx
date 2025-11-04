@@ -25,11 +25,11 @@ export default function TelaProjetos() {
     const loadProjects = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "projects"));
-        const list: any[] = [];
+        const list: Projeto[] = [];
 
 
         querySnapshot.forEach( function(doc) {
-          list.push({ id: doc.id, ...doc.data() });
+          list.push({ id: doc.id, ...doc.data() } as Projeto);
           }
         );
         
