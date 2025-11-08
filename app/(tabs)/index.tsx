@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, Timestamp, query, orderBy } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ export interface Projeto {
   professor: string;
   status: StatusProjeto;
   students: string[];
+  createdAt: Timestamp;
 };
 
 //Funçaõ para carregar documentos de uma coleção
@@ -24,6 +25,7 @@ export default function TelaProjetos() {
   useEffect(() => {
     const loadProjects = async () => {
       try {
+        const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(collection(db, "projects"));
         const list: Projeto[] = [];
 
@@ -53,8 +55,8 @@ export default function TelaProjetos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 20,

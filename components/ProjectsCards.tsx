@@ -27,7 +27,7 @@ export default function ProjectsCards({ projects }: ProjectsCardsProps) {
 
 
     return(
-      <View>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={projects}
           keyExtractor={(item) => item.id}
@@ -62,6 +62,9 @@ export default function ProjectsCards({ projects }: ProjectsCardsProps) {
               >
                 <Text style={{ color: "white", fontWeight: "600" }}>
                   {statusLabels[item.status]}
+                </Text>
+                <Text style={{ color: "#fff", fontSize: 12 }}>
+                  Adicionado em: {item.createdAt.toDate().toLocaleDateString('pt-BR')}
                 </Text>
               </View>
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.name}</Text>
